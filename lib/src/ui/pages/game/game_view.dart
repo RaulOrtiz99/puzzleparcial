@@ -1,3 +1,4 @@
+import 'package:examenparcial2software1/src/ui/pages/game/widgets/game_buttons.dart';
 import 'package:examenparcial2software1/src/ui/pages/game/widgets/puzzle_interactor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,14 +17,15 @@ class GameView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              const Padding(
+            children:const [
+               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: PuzzleInteractor(),
                 ),
-              )
+              ),
+              GameButtons()
             ],
           ),
         ),
