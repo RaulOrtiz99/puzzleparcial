@@ -12,6 +12,7 @@ class GameController extends ChangeNotifier{
     puzzle: Puzzle.create(4),
     solved: false,
     moves: 0,
+    status: GameStatus.created,
   );
 
   GameState get state => _state;

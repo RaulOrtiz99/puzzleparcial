@@ -4,17 +4,25 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../domain/models/puzzle.dart';
 
+enum GameStatus {
+  created, // cuando se inicializa el juego con el puzzle en su posicion o estado inicial
+  playing, // cuando se esta jugando
+  solved,// cuando esta resuelto
+}
+
 class GameState extends Equatable {
   final int crossAxisCount;
   final Puzzle puzzle;
   final bool solved;
   final int moves;
+  final GameStatus status;
 
-  GameState({
+  const GameState({
     required this.crossAxisCount,
     required this.puzzle,
     required this.solved,
     required this.moves,
+    required this.status,
   });
 
   GameState copyWith({
@@ -22,10 +30,12 @@ class GameState extends Equatable {
     int? moves,
     Puzzle? puzzle,
     bool? solved,
+    GameStatus? status,
   }) {
     return GameState(
-      crossAxisCount: crossAxisCount ?? this.crossAxisCount,
+      status: status ?? this.status,
       moves: moves ?? this.moves,
+      crossAxisCount: crossAxisCount ?? this.crossAxisCount,
       puzzle: puzzle ?? this.puzzle,
       solved: solved ?? this.solved,
     );
@@ -37,5 +47,6 @@ class GameState extends Equatable {
     crossAxisCount,
     puzzle,
     solved,
+    status,
   ];
 }
