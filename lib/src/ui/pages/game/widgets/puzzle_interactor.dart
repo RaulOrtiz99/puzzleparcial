@@ -1,3 +1,4 @@
+import 'package:examenparcial2software1/src/ui/pages/game/controller/game_state.dart';
 import 'package:examenparcial2software1/src/ui/pages/game/widgets/puzzle_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +18,19 @@ class PuzzleInteractor extends StatelessWidget {
           final state = controller.state;
           final tileSize = constraints.maxWidth / state.crossAxisCount;
 
-          return Stack(
-            children: state.puzzle.tiles
-                .map(
-                  (e) => PuzzleTile(
-                tile: e,
-                size: tileSize,
-                onTap: () => controller.onTileTapped(e),
-              ),
-            )
-                .toList(),
+          return AbsorbPointer( // esto es para inicializarlo es decir solo se inicia si esta en ese estado
+            absorbing: state.status!= GameStatus.playing,
+            child: Stack(
+              children: state.puzzle.tiles
+                  .map(
+                    (e) => PuzzleTile(
+                  tile: e,
+                  size: tileSize,
+                  onTap: () => controller.onTileTapped(e),
+                ),
+              )
+                  .toList(),
+            ),
           );
         },
       ),
