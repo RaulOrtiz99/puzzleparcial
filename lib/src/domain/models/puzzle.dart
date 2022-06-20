@@ -26,6 +26,82 @@ class Puzzle extends Equatable{
     }
     return false;
   }
+  /// moves one or more tile vertically or horizontally
+  Puzzle move(Tile tile) {
+    final copy = [...tiles];
+    // left or right
+    if (tile.position.y == emptyPosition.y) {
+      final row = tiles.where(
+            (e) => e.position.y == emptyPosition.y,
+      );
+
+      // right
+      if (tile.position.x < emptyPosition.x) {// si es verdad se mueven a la derecha
+        for (final e in row) {
+          if (e.position.x < tile.position.x || e.position.x > emptyPosition.x) {
+            continue;
+          }
+          copy[e.value - 1] = e.move(
+            Position(
+              x: e.position.x + 1,
+              y: e.position.y,
+            ),
+          );
+        }
+      } else {
+        // si es falso se muven los elementos a la izquierda
+        for (final e in row) {
+          if (e.position.x > tile.position.x || e.position.x < emptyPosition.x) {
+            continue;
+          }
+          copy[e.value - 1] = e.move(
+            Position(
+              x: e.position.x - 1,
+              y: e.position.y,
+            ),
+          );
+        }
+      }
+    } else { //si es falso se mueve arriba o abajo
+      // top or bottom
+      final column = tiles.where(
+            (e) => e.position.x == emptyPosition.x,
+      );
+
+      // bottom si es abajo el movimiento
+      if (tile.position.y < emptyPosition.y) {
+        for (final e in column) {
+          if (e.position.y > emptyPosition.y || e.position.y < tile.position.y) {
+            continue;
+          }
+          copy[e.value - 1] = e.move(
+            Position(
+              x: e.position.x,
+              y: e.position.y + 1,
+            ),
+          );
+        }
+      } else { //si el movimiento es para arriba
+        // top
+        for (final e in column) {
+          if (e.position.y < emptyPosition.y || e.position.y > tile.position.y) {
+            continue;
+          }
+          copy[e.value - 1] = e.move(
+            Position(
+              x: e.position.x,
+              y: e.position.y - 1,
+            ),
+          );
+        }
+      }
+    }
+    return Puzzle._(
+      tiles: copy,
+      emptyPosition: tile.position,
+    );
+  }
+
 
   //esta funcion factory es para crear un rompecabezas
 

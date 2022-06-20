@@ -16,10 +16,13 @@ class GameController extends ChangeNotifier{
 
   GameState get state => _state;
 
+  Puzzle get puzzle => _state.puzzle;
+
   void onTileTapped(Tile tile) {
-    final canMove = state.puzzle.canMove(tile.position);
+    final canMove = puzzle.canMove(tile.position);
     if (canMove) {
-      print("🐣");
+      _state =  state.copyWith(puzzle:puzzle.move(tile));
+      notifyListeners();
     }
   }
 }

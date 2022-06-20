@@ -17,7 +17,10 @@ class PuzzleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    return AnimatedPositioned(
+      duration:const Duration(
+        microseconds: 200,
+      ),
       left: (tile.position.x - 1) * size,
       top: (tile.position.y - 1) * size,
       child: GestureDetector(
